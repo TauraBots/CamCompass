@@ -26,6 +26,7 @@ class CamCompass(object):
         file to the database and its associate
         angle.
         '''
+        print 'Registering file',filename
         # Create the SIFT detector
         self.sift = cv2.xfeatures2d.SIFT_create()
         # Create the point cloud matcher
@@ -51,8 +52,8 @@ class CamCompass(object):
         for filename in allfiles:
             if len(filename) > 3:
                 if filename[-3:] == 'png':
-                    self.registerFile(filename, angle)
-    def _calculateSifts(self, img):
+                    self.registerFile(join(folderpath,filename), angle)
+    def _calculateSifts(self, img, angle):
         ''' This method is called by the
         constructor. It finds the SIFT
         feature points of the reference
@@ -71,7 +72,7 @@ class CamCompass(object):
         '''
         kp2, des2 = self.sift.detectAndCompute(img_mat, None)
         results = []
-        for kp1, des1, angle1 in self.ref_sifts:
+        for kp1, des1, angle1 in self.database:
             matches = self.flann.knnMatch(des1, des2, k=2)
             good = []
             for m, n in matches:

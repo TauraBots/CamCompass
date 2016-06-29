@@ -16,7 +16,7 @@ cc.registerFolder('./testimgs/angle0', 0)
 
 # This below is how you use it
 # to query for an angle
-img = cv2.imread('./testimgs/testimg.png')
+img = cv2.imread('./testimgs/test.png')
 angle = cc.getAngle(img)
 print angle * 180.0/pi,"degrees"
 
